@@ -63,6 +63,7 @@ var Obj3D = /** @class */ (function () {
         this.shiftToOrigin(); // Origin in center of object.
         var ch;
         var count = 0;
+        //debugger
         do { // Skip the line "Faces:"
             ch = inp.readChar();
             count++;
