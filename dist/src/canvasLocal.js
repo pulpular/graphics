@@ -8,6 +8,7 @@ export class CanvasLocal {
         this.pixelSize = Math.max(this.rWidth / this.maxX, this.rHeight / this.maxY);
         this.centerX = this.maxX / 2;
         this.centerY = this.maxY / 2;
+        this.step = 0;
     }
     iX(x) { return Math.round(this.centerX + x / this.pixelSize); }
     iY(y) { return Math.round(this.centerY - y / this.pixelSize); }
@@ -20,6 +21,9 @@ export class CanvasLocal {
     }
     fx(x) {
         return Math.sin(x * 2.5);
+    }
+    getGraphics() {
+        return this.graphics;
     }
     paint() {
         this.drawLine(this.iX(-3), this.iY(0), this.iX(3), this.iY(0));

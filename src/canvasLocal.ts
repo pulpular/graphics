@@ -9,6 +9,7 @@ export class CanvasLocal {
   protected pixelSize: number;
   protected centerX: number;
   protected centerY: number;
+  step: number;
   
       
   public constructor(g: CanvasRenderingContext2D, canvas: HTMLCanvasElement){
@@ -19,7 +20,8 @@ export class CanvasLocal {
     this.maxY = canvas.height - 1;
     this.pixelSize = Math.max(this.rWidth / this.maxX, this.rHeight / this.maxY);
     this.centerX = this.maxX/2;
-    this.centerY = this.maxY/2;
+    this.centerY = this.maxY / 2;
+    this.step = 0;
   }
 
   iX(x: number):number{return Math.round(this.centerX + x/this.pixelSize);}
@@ -36,7 +38,10 @@ export class CanvasLocal {
   fx(x:number):number {
     return Math.sin(x*2.5);
   }
-
+  
+  getGraphics(): CanvasRenderingContext2D{
+    return this.graphics;
+  }
 
   paint() {
     
