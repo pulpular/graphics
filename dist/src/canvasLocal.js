@@ -41,27 +41,51 @@ export class CanvasLocal {
     fx(x) {
         return Math.sin(x * 2.5);
     }
+    maxH(h) {
+        let max = h[0];
+        for (let i = 1; i < h.length; i++) {
+            if (max < h[i])
+                max = h[i];
+        }
+        //
+        let res;
+        let pot = 10;
+        //se calcula la potencia de 10 mayor al max para redondear el maximo de la grafica.
+        while (pot < max) {
+            pot *= 10;
+        }
+        pot /= 10;
+        res = Math.ceil(max / pot) * pot;
+        return res;
+    }
     paint() {
+        //let h: number[] = [120, 100, 160, 20];
         let h = [19, 10, 16, 2];
-        let maxEsc = 20;
+        let maxEsc;
         let colors = ['magenta', 'red', 'green', 'yellow'];
+        maxEsc = this.maxH(h);
         this.graphics.strokeStyle = 'black';
         this.drawLine(this.iX(0), this.iY(0), this.iX(8), this.iY(0));
         this.drawLine(this.iX(0), this.iY(0), this.iX(0), this.iY(6));
-        for (let y = 0.6; y <= 6; y += 1.25) {
-            this.drawLine(this.iX(0.5), this.iY(y), this.iX(8), this.iY(y));
-            this.drawLine(this.iX(0), this.iY(y - 0.6), this.iX(0.5), this.iY(y));
+        //las 6 unidades se dividen entre 4 periodos de lineas cada una 
+        //representara una escala de 1/4 del total maximo
+        let i = 0;
+        for (let y = 0.6; y <= 6; y += 1.35) {
+            this.drawLine(this.iX(0.6), this.iY(y), this.iX(8), this.iY(y));
+            this.drawLine(this.iX(0), this.iY(y - 0.6), this.iX(0.6), this.iY(y));
+            this.graphics.strokeText((maxEsc * i / 4) + "", this.iX(-0.5), this.iY(y - 0.7));
+            i++;
         }
-        //this.graphics.strokeStyle = 'magenta';
+        this.graphics.strokeStyle = 'black';
         let ind = 0;
         for (let i = 0.5; i <= 8; i += 2) {
             //this.graphics.strokeStyle = colors[ind];
             this.graphics.fillStyle = colors[ind];
-            console.log(this.rHeight * h[ind] / maxEsc);
-            /*this.drawLine(this.iX(i), this.iY(6 * h[ind] / maxEsc), this.iX(i), this.iY(0.2));*/
-            this.graphics.fillRect(this.iX(i), this.iY(6 * h[ind] / maxEsc), this.iX(2) - this.iX(1), this.iY(0.2) - this.iY(6 * h[ind] / maxEsc));
-            this.drawRmboide(this.iX(i + 0.3), this.iY(6 * h[ind] / maxEsc + 0.3), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.3), this.iX(i + 1), this.iY(6 * h[ind] / maxEsc), this.iX(i), this.iY(6 * h[ind] / maxEsc), colors[ind]);
-            this.drawRmboide(this.iX(i + 1), this.iY(6 * h[ind] / maxEsc), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.3), this.iX(i + 1.3), this.iY(0.5), this.iX(i + 1), this.iY(0.2), colors[ind]);
+            //console.log(this.rHeight*h[ind]/maxEsc)
+            this.drawLine(this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i), this.iY(0.1));
+            this.graphics.fillRect(this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(2) - this.iX(1), this.iY(0.2) - this.iY(6 * h[ind] / maxEsc));
+            this.drawRmboide(this.iX(i + 0.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), colors[ind]);
+            this.drawRmboide(this.iX(i + 1), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1.3), this.iY(0.4), this.iX(i + 1), this.iY(0.1), colors[ind]);
             ind++;
         }
         ind = 0;
@@ -73,31 +97,5 @@ export class CanvasLocal {
             this.graphics.fillStyle = colors[y];
             this.graphics.fillRect(this.iX(8.5), this.iY(5 - y), 10, 10);
         }
-        /* //dibuja la cuadricula
-         this.graphics.strokeStyle = 'lightgray';
-         for (let x = -3; x <= 3; x+=0.25){
-           this.drawLine(this.iX(x), this.iY(-2), this.iX(x), this.iY(2));
-         }
-         for (let y = -2; y <= 2; y+=0.25){
-           this.drawLine(this.iX(-3), this.iY(y), this.iX(3), this.iY(y));
-         }
-         //dibuja las divisiones
-         this.graphics.strokeStyle = 'black';
-         for (let x = -3; x <= 3; x++){
-           this.drawLine(this.iX(x), this.iY(-0.1), this.iX(x), this.iY(0.1));
-           this.graphics.strokeText(x+"", this.iX(x-0.1), this.iY(-0.2));
-         }
-         for (let y = -2; y <= 2; y++){
-           this.drawLine(this.iX(-0.1), this.iY(y), this.iX(0.1), this.iY(y));
-         }
-         this.graphics.strokeText("X", this.iX(2.9), this.iY(0.2));
-         this.graphics.strokeText("Y", this.iX(-0.2), this.iY(1.8));
-         //dibujar la funcion
-         this.graphics.strokeStyle = 'red';
-         let paso: number = 0.1;
-         for (let x = -3; x <= 3; x+=paso){
-           this.drawLine(this.iX(x), this.iY(this.fx(x)), this.iX(x+paso), this.iY(this.fx(x+paso)));
-         }
-       */
     }
 }
