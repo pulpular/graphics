@@ -38,9 +38,6 @@ export class CanvasLocal {
         // Lo rellenamos
         this.graphics.fill();
     }
-    fx(x) {
-        return Math.sin(x * 2.5);
-    }
     maxH(h) {
         let max = h[0];
         for (let i = 1; i < h.length; i++) {
@@ -63,28 +60,26 @@ export class CanvasLocal {
     }
     hexToRgb(hex) {
         let bigint = parseInt(hex.slice(1), 16);
-        console.log(bigint);
         let r = (bigint >> 16) & 255;
         let g = (bigint >> 8) & 255;
         let b = bigint & 255;
         return ("rgb(" + r + "," + g + "," + b + ")");
     }
     drawHexface(x1, y1, width, height, r, g, b) {
-        let unidad = width / 2;
+        let unidad = width;
         this.drawRomboide(x1, y1 - height, x1 + width * 0.5, y1 - height - unidad * 0.2, x1 + width * 0.5, y1 - unidad * 0.2, x1, y1, "rgb(" + r + "," + g + "," + b + ")");
         this.drawRomboide(x1, y1 - height, x1 - width * 0.5, y1 - height - unidad * 0.2, x1 - width * 0.5, y1 - unidad * 0.2, x1, y1, "rgb(" + (r - 20) + "," + (g + 20) + "," + b + ")");
         this.drawRomboide(x1 + width * 0.5, y1 - height - unidad * 0.2, x1 + width * 0.75, y1 - height - unidad * 0.5, x1 + width * 0.75, y1 - unidad * 0.5, x1 + width * 0.5, y1 - unidad * 0.2, "rgb(" + (r - 50) + "," + (g + 40) + "," + b + ")");
+        this.drawRomboide(x1 - width * 0.5, y1 - height - unidad * 0.2, x1 - width * 0.75, y1 - height - unidad * 0.5, x1 - width * 0.75, y1 - unidad * 0.5, x1 - width * 0.5, y1 - unidad * 0.2, "rgb(" + (r - 50) + "," + (g + 40) + "," + b + ")");
     }
     paint() {
-        //let h: number[] = [120, 100, 160, 20];
-        let h = [19, 10, 16, 2];
+        let h = [120, 100, 160, 20];
+        //let h: number[] = [19, 10, 16, 2];
         let maxEsc;
         let colors = ['magenta', 'red', 'green', 'yellow'];
         maxEsc = this.maxH(h);
         this.graphics.strokeStyle = 'black';
         this.graphics.fillStyle = colors[0];
-        console.log(this.graphics.fillStyle);
-        console.log(this.hexToRgb("" + this.graphics.fillStyle));
         /*this.drawLine(this.iX(0), this.iY(0), this.iX(8), this.iY(0));
         this.drawLine(this.iX(0), this.iY(0), this.iX(0), this.iY(6));*/
         //las 6 unidades se dividen entre 4 periodos de lineas cada una 
@@ -100,7 +95,10 @@ export class CanvasLocal {
         this.drawLine(this.iX(2), this.iY(0), this.iX(2), this.iY(6));
         this.graphics.strokeStyle = 'black';
         let ind = 0;
-        this.drawHexface(this.iX(1), this.iY(6 * h[0] / maxEsc), this.iX(1) - this.iX(0), this.iY(6 * h[0] / maxEsc) - this.iY(0), 255, 0, 0);
+        for (let i = 1; i <= 8; i += 2) {
+            this.drawHexface(this.iX(i), this.iY(6 * h[ind] / maxEsc), this.iX(1) - this.iX(0), this.iY(6 * h[ind] / maxEsc) - this.iY(0), 255, 0, 0);
+            ind++;
+        }
         /* for (let i = 0.5; i <=8; i += 2){
            //this.graphics.strokeStyle = colors[ind];
            this.graphics.fillStyle = colors[ind];
