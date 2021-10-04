@@ -59,8 +59,9 @@ export class CanvasLocal {
         return res;
     }
     paint() {
-        //let h: number[] = [120, 100, 160, 20];
-        let h = [19, 10, 16, 2];
+        //let h: number[] = [420, 100, 160, 20];
+        //let h: number[] = [1150, 1780, 860, 1260];
+        let h = [27, 10, 16, 2];
         let maxEsc;
         let colors = ['magenta', 'red', 'green', 'yellow'];
         maxEsc = this.maxH(h);
@@ -82,7 +83,7 @@ export class CanvasLocal {
             //this.graphics.strokeStyle = colors[ind];
             this.graphics.fillStyle = colors[ind];
             //console.log(this.rHeight*h[ind]/maxEsc)
-            this.drawLine(this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i), this.iY(0.1));
+            this.drawLine(this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i), this.iY(0));
             this.graphics.fillRect(this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(2) - this.iX(1), this.iY(0.2) - this.iY(6 * h[ind] / maxEsc));
             this.drawRmboide(this.iX(i + 0.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i), this.iY(6 * h[ind] / maxEsc - 0.1), colors[ind]);
             this.drawRmboide(this.iX(i + 1), this.iY(6 * h[ind] / maxEsc - 0.1), this.iX(i + 1.3), this.iY(6 * h[ind] / maxEsc + 0.2), this.iX(i + 1.3), this.iY(0.4), this.iX(i + 1), this.iY(0.1), colors[ind]);
