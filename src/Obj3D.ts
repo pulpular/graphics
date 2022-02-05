@@ -7,6 +7,7 @@ import { Input } from './Input.js';
 import { Polygon3D } from './Polygon3D.js';
 import { Dimension } from './Dimension.js';
 import { CvHLines } from './CvHLines';
+import { CvZbuf } from './CvZbuf.js';
 
 export class Obj3D{
    rho: number; d: number; theta: number = 0.30; phi: number = 1.3; rhoMin: number; rhoMax: number;
@@ -209,7 +210,7 @@ export class Obj3D{
       this.inprodRange = this.inprodMax - this.inprodMin;
    }
 
-   vp( cv: CvHLines, dTheta:number, dPhi:number, fRho:number): boolean {
+   vp( cv: CvHLines|CvZbuf, dTheta:number, dPhi:number, fRho:number): boolean {
       this.theta += dTheta;
       this.phi += dPhi;
       let rhoNew = fRho * this.rho;
