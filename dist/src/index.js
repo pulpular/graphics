@@ -63,6 +63,14 @@ function incrDistFunc() {
 function decrDistFunc() {
     vp(0, 0, 0.5);
 }
+function pza1TR() {
+    var tr = 0.1;
+    for (var i = 17; i <= 20; i++) {
+        obj.w[i].x = obj.w[i].x + tr;
+    }
+    cv.setObj(obj);
+    cv.paint();
+}
 function pza1DerFunc() {
     var af = 10;
     Rota3D.initRotate(obj.w[139], obj.w[140], af * Math.PI / 180);
@@ -117,6 +125,7 @@ document.getElementById('pza1Izq').addEventListener('click', pza1IzqFunc, false)
 document.getElementById('pza1Der').addEventListener('click', pza1DerFunc, false);
 document.getElementById('pza12Izq').addEventListener('click', pza12IzqFunc, false);
 document.getElementById('pza12Der').addEventListener('click', pza12DerFunc, false);
+document.getElementById('pzatr').addEventListener('click', pza1TR, false);
 var Pix, Piy;
 var Pfx, Pfy;
 var theta = 0.3, phi = 1.3, SensibilidadX = 0.02, SensibilidadY = 0.02;

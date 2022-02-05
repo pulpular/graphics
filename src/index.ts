@@ -5,7 +5,7 @@ import { Obj3D } from './Obj3D.js';
 //import { CvWireframe } from './CvWireFrame.js';
 import { CvHLines } from './CvHLines.js';
 import { Rota3D } from './Rota3D.js';
-import { Point3D } from './Point3D.js';
+import { Point3D } from './point3D.js';
 
 let canvas: HTMLCanvasElement;
 let graphics: CanvasRenderingContext2D;
@@ -78,6 +78,18 @@ function decrDistFunc() {
   vp(0, 0, 0.5);
 }
 
+function pza1TR() {
+  let tr = 0.1;
+ 	
+	
+  for (let i = 17; i <= 20; i++){
+    obj.w[i].x = obj.w[i].x + tr;
+	}
+	cv.setObj(obj);
+  cv.paint();	
+}
+
+
 function pza1DerFunc() {
   let af = 10;
  	
@@ -144,6 +156,8 @@ document.getElementById('pza1Izq').addEventListener('click', pza1IzqFunc, false)
 document.getElementById('pza1Der').addEventListener('click', pza1DerFunc, false);
 document.getElementById('pza12Izq').addEventListener('click', pza12IzqFunc, false);
 document.getElementById('pza12Der').addEventListener('click', pza12DerFunc, false);
+
+document.getElementById('pzatr').addEventListener('click', pza1TR, false);
 
 let Pix: number, Piy: number;
 let Pfx: number, Pfy: number;
