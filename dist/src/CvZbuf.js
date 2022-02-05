@@ -26,16 +26,6 @@ var CvZbuf = /** @class */ (function () {
         this.maxY = dim.height - 1;
         this.centerX = this.maxX / 2;
         this.centerY = this.maxY / 2;
-        /*if (this.obj == null) return;
-            Vector polyList = obj.getPolyList();
-            if (polyList == null) return;
-            int nFaces = polyList.size();
-            if (nFaces == 0) return;
-            float xe, ye, ze;
-      
-            Dimension dim = getSize();
-            maxX = dim.width - 1; maxY = dim.height - 1;
-            centerX = maxX/2; centerY = maxY/2;*/
         // ze-axis towards eye, so ze-coordinates of
         // object points are all negative. Since screen
         // coordinates x and y are used to interpolate for
@@ -65,6 +55,7 @@ var CvZbuf = /** @class */ (function () {
                 continue;
             var cCode = this.obj.colorCode(pol.getA(), pol.getB(), pol.getC());
             this.g.strokeStyle = "rgb(" + cCode + "," + cCode + ",0)";
+            this.g.fillStyle = "rgb(" + cCode + "," + cCode + ",0)";
             pol.triangulate(this.obj);
             var t = pol.getT();
             for (var i = 0; i < t.length; i++) {
@@ -124,7 +115,7 @@ var CvZbuf = /** @class */ (function () {
                             this.buf[ix][iy] = zi;
                         }
                         else if (leftmostValid) {
-                            this.drawLine(this.g, xLeftmost, iy, ix - 1, iy);
+                            this.drawLine(this.g, xLeftmost, iy, ix + 1, iy);
                             leftmostValid = false;
                         }
                         zi += dzdx;
@@ -136,8 +127,8 @@ var CvZbuf = /** @class */ (function () {
             }
         }
     };
-    CvZbuf.prototype.drawLine = function (g, px1, py1, px2, py2) {
-        var x1 = this.iX(px1), y1 = this.iY(py1), x2 = this.iX(px2), y2 = this.iY(py2);
+    CvZbuf.prototype.drawLine = function (g, x1, y1, x2, y2) {
+        //let x1 = this.iX(px1), y1 = this.iY(py1), x2 = this.iX(px2), y2 = this.iY(py2);
         if (x1 != x2 || y1 != y2) {
             g.beginPath();
             g.moveTo(x1, y1);

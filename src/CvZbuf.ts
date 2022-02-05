@@ -2,13 +2,10 @@
 import { Obj3D } from './Obj3D.js';
 import { Point2D } from './point2D.js';
 import { Dimension } from './Dimension.js';
-
 import { Polygon3D } from './Polygon3D.js';
 import { Point3D } from './point3D.js';
 import { Tria } from './Tria.js'
-import { Tools2D} from './Tools2D.js'
-
-
+import { Tools2D } from './Tools2D.js'
 export class CvZbuf{ //extends Canvas3D {
   private maxX: number; maxY: number; centerX: number; centerY: number; maxX0 = -1; maxY0 = -1;
   private buf: number[][];
@@ -39,16 +36,6 @@ export class CvZbuf{ //extends Canvas3D {
     this.canvas.width=this.canvas.width;
     this.maxX = dim.width - 1; this.maxY = dim.height - 1;
     this.centerX = this.maxX/2; this.centerY = this.maxY/2;
-  /*if (this.obj == null) return;
-      Vector polyList = obj.getPolyList();
-      if (polyList == null) return;
-      int nFaces = polyList.size();
-      if (nFaces == 0) return;
-      float xe, ye, ze;
-
-      Dimension dim = getSize();
-      maxX = dim.width - 1; maxY = dim.height - 1;
-      centerX = maxX/2; centerY = maxY/2;*/
       // ze-axis towards eye, so ze-coordinates of
       // object points are all negative. Since screen
       // coordinates x and y are used to interpolate for
@@ -60,7 +47,7 @@ export class CvZbuf{ //extends Canvas3D {
       //buf = new float[dim.width][dim.height];
       this.buf = new Array(dim.width);
       for (let i = 0; i < dim.width; i++) 
-      this.buf[i] = new Array(dim.height);
+        this.buf[i] = new Array(dim.height);
       this.maxX0 = this.maxX; this.maxY0 = this.maxY;
     }
     for (let iy=0; iy<dim.height; iy++)
@@ -80,7 +67,7 @@ export class CvZbuf{ //extends Canvas3D {
     let cCode =
       this.obj.colorCode(pol.getA(), pol.getB(), pol.getC());
     this.g.strokeStyle = `rgb(${cCode},${cCode},0)`;
-
+    this.g.fillStyle = `rgb(${cCode},${cCode},0)`;
     pol.triangulate(this.obj);
 
     let t: Tria[] = pol.getT();
@@ -119,7 +106,7 @@ export class CvZbuf{ //extends Canvas3D {
           // Compute horizontal line segment (xL, xR)
          // for coordinate y:
         let xI: number, xJ: number, xK: number, xI1: number, xJ1: number,
-          xK1: number, xL: number, xR: number;
+            xK1: number, xL: number, xR: number;
         xI = xJ = xK = 1e30;
         xI1 = xJ1 = xK1 = -1e30;
         if((y-yB)*(y-yC)<=0&&yB!=yC)
@@ -158,7 +145,7 @@ export class CvZbuf{ //extends Canvas3D {
           }
           else
             if (leftmostValid) {
-              this.drawLine(this.g, xLeftmost, iy, ix - 1, iy);
+              this.drawLine(this.g, xLeftmost, iy, ix + 1, iy);
               leftmostValid = false;
             } 
             zi += dzdx;
@@ -170,15 +157,14 @@ export class CvZbuf{ //extends Canvas3D {
       }
     }
   }
-  drawLine(g: CanvasRenderingContext2D, px1: number, py1: number, px2: number, py2: number): void{
-    let x1 = this.iX(px1), y1 = this.iY(py1), x2 = this.iX(px2), y2 = this.iY(py2);
+  drawLine(g: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number): void{
+    //let x1 = this.iX(px1), y1 = this.iY(py1), x2 = this.iX(px2), y2 = this.iY(py2);
       if (x1 != x2 || y1 != y2) {
         g.beginPath();
         g.moveTo(x1, y1);
         g.lineTo(x2, y2);
         g.closePath();
         g.stroke();
-      }
-      
+      } 
     }
 }
