@@ -1,7 +1,7 @@
 export class CanvasLocal {
     constructor(g, canvas) {
-        this.rWidth = 10.0;
-        this.rHeight = 10.0;
+        this.rWidth = 8.0;
+        this.rHeight = 6.0;
         this.graphics = g;
         this.maxX = canvas.width - 1;
         this.maxY = canvas.height - 1;
@@ -18,15 +18,28 @@ export class CanvasLocal {
         this.graphics.closePath();
         this.graphics.stroke();
     }
+    fx(x) {
+        return Math.pow(x, 3);
+    }
     paint() {
         /*this.drawLine(this.iX(0), this.iY(0), this.iX(1), this.iY(0));
         this.drawLine(this.iX(1), this.iY(0), this.iX(1), this.iY(1));
         this.drawLine(this.iX(1), this.iY(1), this.iX(0), this.iY(1));
         this.drawLine(this.iX(0), this.iY(1), this.iX(0), this.iY(0));*/
         //triasngulo con base = 2, altura de 5
-        this.drawLine(this.iX(-1), this.iY(0), this.iX(1), this.iY(0));
-        this.drawLine(this.iX(1), this.iY(0), this.iX(0), this.iY(5));
-        this.drawLine(this.iX(0), this.iY(5), this.iX(-1), this.iY(0));
+        this.drawLine(this.iX(-3), this.iY(0), this.iX(3), this.iY(0));
+        this.drawLine(this.iX(0), this.iY(-3), this.iX(0), this.iY(3));
+        this.graphics.strokeStyle = "gray";
+        for (let i = -3; i <= 3; i++) {
+            this.drawLine(this.iX(i), this.iY(-10), this.iX(i), this.iY(10));
+            this.graphics.fillText(i + "", this.iX(i), this.iY(-0.2));
+            this.drawLine(this.iX(-10), this.iY(i), this.iX(10), this.iY(i));
+            this.graphics.fillText(i + "", this.iX(0.1), this.iY(i));
+        }
+        this.graphics.strokeStyle = "red";
+        for (let x = -3; x < 3; x += 0.1) {
+            this.drawLine(this.iX(x), this.iY(this.fx(x)), this.iX(x + 0.1), this.iY(this.fx(x + 0.1)));
+        }
         /*let lado = 1;
         let side = 0.95 * lado;
         let sideHalf = 0.5 * side;

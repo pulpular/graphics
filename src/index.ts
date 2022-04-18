@@ -7,10 +7,10 @@ canvas = <HTMLCanvasElement>document.getElementById('circlechart');
 graphics = canvas.getContext('2d');
 
 const miCanvas:CanvasLocal = new CanvasLocal(graphics, canvas);
-
-let dibujar = false
+miCanvas.paint();
+/*let dibujar = false
 let x1, y1;
-//miCanvas.paint();
+//
 function movimiento(evt) {
   graphics.clearRect(0,0, 640,480)
   if (!dibujar)
@@ -28,4 +28,4 @@ function movimiento(evt) {
 }
 
 
-canvas.addEventListener('click', movimiento)
+canvas.addEventListener('click', movimiento)*/
