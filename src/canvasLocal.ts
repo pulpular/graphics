@@ -9,6 +9,8 @@ export class CanvasLocal {
   protected pixelSize: number;
   protected centerX: number;
   protected centerY: number;
+  protected limInf: number;
+  protected limSup: number;
   
       
   public constructor(g: CanvasRenderingContext2D, canvas: HTMLCanvasElement){
@@ -19,7 +21,9 @@ export class CanvasLocal {
     this.maxY = canvas.height - 1;
     this.pixelSize = Math.max(this.rWidth / this.maxX, this.rHeight / this.maxY);
     this.centerX = this.maxX/10*2;
-    this.centerY = this.maxY/8*7;
+    this.centerY = this.maxY / 8 * 7;
+    this.limInf = 1;
+    this.limSup = 9;
   }
 
   iX(x: number): number{return Math.round(this.centerX + x/this.pixelSize);}
@@ -43,7 +47,49 @@ export class CanvasLocal {
     return (1/x);
   }
 
+  fillFuncion( tpaso: number, r:number, g:number, b:number) {
+    
+      // Color de relleno
+    this.graphics.fillStyle = `rgb(${r},${g},${b})`;
+      // Comenzamos la ruta de dibujo, o path
+      this.graphics.beginPath();
+      // Mover a la esquina superior izquierda
+      this.graphics.moveTo(this.iX(this.limInf), this.iY(this.fx(this.limInf)));
+      // Dibujar la línea hacia la derecha
+      for (let x = this.limInf; x <= this.limSup; x += tpaso) {
+        this.graphics.lineTo(this.iX(x), this.iY(this.fx(x)));
+      }
+      this.graphics.lineTo(this.iX(this.limSup), this.iY(this.fx(this.limSup)));
+      this.graphics.lineTo(this.iX(this.limSup), this.iY(0));
+      this.graphics.lineTo(this.iX(this.limInf), this.iY(0));
+      // Y dejamos que la última línea la dibuje JS
+      this.graphics.closePath();
+      // Hacemos que se dibuje
+      //this.graphics.stroke();
+      // Lo rellenamos
+      this.graphics.fill();
+    }
 
+  fillCuadritos(tpaso: number, r: number, g: number, b: number) {
+    let areas = new Array(0);
+    // Color de relleno
+    this.graphics.fillStyle = `rgba(${r},${g},${b}, 0.5)`;
+    // Mover a la esquina superior izquierda
+    for (let x = this.limInf; x <= this.limSup-tpaso; x += tpaso) {
+      this.graphics.beginPath();
+      areas.push(tpaso*this.fx(x));
+      this.graphics.moveTo(this.iX(x), this.iY(this.fx(x)));
+      this.graphics.lineTo(this.iX(x+tpaso), this.iY(this.fx(x)));
+      this.graphics.lineTo(this.iX(x+tpaso), this.iY(0));
+      this.graphics.lineTo(this.iX(x), this.iY(0));
+ 
+    // Y dejamos que la última línea la dibuje JS
+      this.graphics.closePath();
+      this.graphics.fill();
+    }
+    console.log(areas)
+  }
+  
   paint() {
     
 
@@ -81,13 +127,15 @@ export class CanvasLocal {
     this.graphics.fillStyle = 'blue';
     let paso: number = 0.1;
     let cont=0
-    for (let x = 0.3; x <= 9; x+=paso){
+    for (let x = this.limInf-0.5; x <= this.limSup; x+=paso){
       this.drawLine(this.iX(x), this.iY(this.fx(x)), this.iX(x+paso), this.iY(this.fx(x+paso)));
       /*if (cont%10 === 0) {
         this.drawOval(this.iX(x), this.iY(this.fx(x)), this.iX(0.1)-this.iX(0));
       }  */
       cont++;
     }
+    this.fillFuncion(paso, 0, 200, 25);
+    this.fillCuadritos(1, 0, 200, 25);
     /*this.graphics.strokeStyle = 'red';
     this.drawLine(this.iX(0), this.iY(0), this.iX(2), this.iY(0));
     this.drawLine(this.iX(2), this.iY(0), this.iX(1), this.iY(1.5));
