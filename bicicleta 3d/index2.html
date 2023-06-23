@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WireFrame 3D Vizualizer</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="main-header">
+      <div class="titulo">
+        <h3>Graficación</h3>
+      </div>
+    </header>
+    <nav class="main-nav">
+      <div class="navbar-menu" id="navbarNavDropdown">
+        <ul class="dropdown-menu">
+          <li class="nav-item">
+            <a class="nav-link" id="navbarDropdownMenuLink1">
+              VISUALIZACION
+            </a>
+            <ul class="dropdown-menu">
+          <!-- <li>
+            <a class="dropdown-item" href="#" id="eyeDown">Viewpoint Down</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="eyeUp">Viewpoint Up</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="eyeLeft">Viewpoint to Left</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="eyeRight">Viewpoint to Right</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="incrDist">Increase viewing distance</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="decrDist">Decrease viewing distance</a>
+          </li>
+          </li> -->
+        </ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1">
+              Mover piezas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+              <li> <img src="icons/_tn397o7g1.png" width="50px"> <a class="dropdown-item" href="#" id="pzaDer">Pza der</a></li>
+              <li> <img src="icons/_fl65gzfa0.png" width="50px"> <a class="dropdown-item" href="#" id="pzaIzq">Pza izq </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <article class="main-content">
+      <div class="featured-section">
+        <div class="featured-title">canvas</div>
+        <div class="canvas-container">
+          <canvas canvas="canvas" id="circlechart" width="800px" height="400px"></canvas>
+        </div>
+      </div>
+      <div class="help">
+        <div class="help-item">
+          <a class="help-link" id="navbarDropdownMenuLink3">About</a>
+        </div>
+        <div class="help-item">
+          <a class="help-link" href="#">Development Team</a>
+        </div>
+        <div class="help-item">
+          <a class="help-link" href="#">Version</a>
+        </div>
+        <div class="help-item">
+          <a class="help-link" href="#">Contact</a>
+        </div>
+    </div>
+  </div>
+    </article>
+    <footer>
+      <input type="file" id="file-input" />
+      <h3>Contenido del archivo:</h3>
+      <pre id="contenido-archivo"></pre>
+    </footer>
+  </div>
+
+  <script src="./dist/src/index.js" type="module"></script>
+</body>
+
+</html>
+
